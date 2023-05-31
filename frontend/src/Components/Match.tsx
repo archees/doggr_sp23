@@ -6,6 +6,7 @@ import { getNextProfileFromServer } from "@/Services/HttpClient.tsx";
 import { MatchService } from "@/Services/MatchService.tsx";
 import { PassService } from "@/Services/PassService.tsx";
 import { useContext, useEffect, useState } from "react";
+import {useNavigate} from "react-router-dom";
 
 export const Match = () => {
 	const [currentProfile, setCurrentProfile] = useState<ProfileType>();
@@ -40,11 +41,17 @@ export const Match = () => {
 			});
 	};
 
+	const navigate = useNavigate();
+	const onMessageButtonClick = () =>{
+		navigate('/message',{state: {userProfile : currentProfile}});
+	};
+
 	const profile = (
 		<Profile
 			{...currentProfile}
 			onLikeButtonClick={onLikeButtonClick}
 			onPassButtonClick={onPassButtonClick}
+			onMessageButtonClick ={onMessageButtonClick}
 		/>
 	);
 
